@@ -87,7 +87,7 @@
       cursor: pointer;
       background: white;
       position: relative;
-      right: 8%;
+      right: 7.3%;
       border-radius: 11px;
       cursor: pointer;
       transition: all 300ms;
@@ -103,7 +103,8 @@
       margin: 5%;
     }
     .pokecard {
-      background: radial-gradient(circle at 50% 0%, orange 36%, #ffffff 36%);
+            background: radial-gradient(circle at 50% 0%, orange 36%, #ffffff 36%);
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -190,21 +191,18 @@
     .power1 p {
       background: cyan;
       border-radius: 21px;
+      text-align: center;
       padding: 9%;
       font-size: 1.2rem;
       font-weight: 600;
       white-space: nowrap;
-      letter-spacing: 1px;
       border: 1.7px solid black;
       flex-wrap: nowrap;
-    }
-    .power1 :nth-child(1) {
-      margin-right: 19%;
     }
     .power1 img {
       height: 16px;
       width: 16px;
-      margin-left: 7px;
+      margin-left: 2px;
     }
     .bottominfo {
       display: flex;
@@ -272,35 +270,6 @@
         </div>
       </div>
       <div class="results">
-        <div class="pokecard" id="rcard">
-          <div class="topinfo">
-            <div class="idtag">#1</div>
-            <div class="hptag"><span>HP</span>150</div>
-          </div>
-          <div class="pokeimglabe">
-            <img src="pika.png" alt="pikachu"/>
-            <h3>Pikachu</h3>
-          </div>
-          <div class="power1">
-            <p>electric<img src="Grass.png" /></p>
-            <p>quick<img src="Grass.png" /></p>
-          </div>
-
-          <div class="bottominfo">
-            <div class="attack">
-              <span>60</span>
-              <p>Attack</p>
-            </div>
-            <div class="defence">
-              <span>60</span>
-              <p>Defence</p>
-            </div>
-            <div class="speed">
-              <span>60</span>
-              <p>Speed</p>
-            </div>
-          </div>
-        </div>
     </div>
   </body>
   <script src="app.js"></script>
