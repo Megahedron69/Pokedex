@@ -2,27 +2,13 @@
 const randombut = document.querySelector("button");
 const searchbar = document.querySelector("input");
 const searchbut = document.querySelector("svg");
-
 const searchcont = document.querySelector(".results");
-const card = document.getElementById("rcard");
-const pokeid = document.querySelector(".idtag");
-const pokehp = document.querySelector(".hptag");
-
-const pokeimg = document.querySelector(".pokeimglabe img");
-const pokename = document.querySelector(".pokeimglabe h3");
-
-const poketype = document.querySelector(".power1 p");
-const typeimg = document.querySelector(".power1 img");
-
-const atk = document.querySelector(".attack span");
-const def = document.querySelector(".defence span");
-const spd = document.querySelector(".speed span");
+const abilities = document.querySelector(".power1 p");
 /*********************************VARIABLES******************/
-let searchquery = "";
 const baseurl = `https://pokeapi.co/api/v2/pokemon/`;
 let themecolor;
 /*********************************ARRAYS AND OBJECTS*********/
-const typeColor = {
+const typecolor = {
   bug: "#26de81",
   dragon: "#ffeaa7",
   electric: "#fed330",
@@ -42,9 +28,10 @@ const typeColor = {
 };
 /*****************************ADDEVENTLISTENERS**************/
 searchbut.addEventListener("click", function () {
-  searchquery = searchbar.value;
-  if ((searchquery = "")) alert("Please enter a valid name");
-  else fetchapi(baseurl);
+  if (searchbar.value === "") alert("Please enter a valid name");
+  else {
+    fetchapi(`https://pokeapi.co/api/v2/pokemon/${searchbar.value}`);
+  }
 });
 randombut.addEventListener("click", function () {
   let randid = Math.floor(Math.random() * 150) + 1;
@@ -52,25 +39,73 @@ randombut.addEventListener("click", function () {
   fetchapi(finalurl);
 });
 /*****************************FUNCTIONS**********************/
+
 async function fetchapi(url) {
   let response = await fetch(url);
-  try {
-    let data = await response.json();
-    console.log("Api connected");
-    generatehtml(data);
-  } catch {
-    console.log("error");
-  }
+  let data = await response.json();
+  //console.log("Api connected");
+  generatehtml(data);
 }
 
-function setcardstyle(color) {
-  card.style.background = `radial-gradient(circle at 50% 0%, ${color} 36%, #ffffff 36%)`;
-  poketype.style.backgroundColor = `${color}`;
-  console.log("color changed to:" + color);
+const fetchPokemons = async () => {
+  for (let i = 1; i <= 50; i++) {
+    await getPokemon(i);
+  }
+};
+
+const getPokemon = async (id) => {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const res = await fetch(url);
+  const pokemon = await res.json();
+  createPokemonCard(pokemon);
+};
+
+function createPokemonCard(pokemon) {
+  let pokeInnerHTML = "";
+  const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  pokeInnerHTML = `<div class="pokecard">
+        <div class="topinfo">
+          <div class="idtag">#${pokemon.id}</div>
+          <div class="hptag">
+            <span>HP</span>${pokemon.stats[0].base_stat}
+          </div>
+        </div>
+        <div class="pokeimglabe">
+          <img src=${pokemon.sprites.other.dream_world.front_default} alt="${pokemon.name}" />
+          <h3>${name}</h3>
+        </div>
+         <div class="power1">
+            <p>
+            ${pokemon.types[0].type.name}
+            <img src="Grass.png" />
+          </p>
+          
+          </div>
+        <div class="bottominfo">
+          <div class="attack">
+            <span>${pokemon.stats[1].base_stat}</span>
+            <p>Attack</p>
+          </div>
+          <div class="defence">
+            <span>${pokemon.stats[2].base_stat}</span>
+            <p>Defence</p>
+          </div>
+          <div class="speed">
+            <span>${pokemon.stats[5].base_stat}</span>
+            <p>Speed</p>
+          </div>
+        </div>
+      </div>`;
+  searchcont.innerHTML += pokeInnerHTML;
 }
+fetchPokemons();
 
 function generatehtml(result) {
-  let newhtml = `<div class="pokecard">
+  const card = document.createElement("div");
+  card.classList.add("pokecard");
+  const name = result.name[0].toUpperCase() + result.name.slice(1);
+  let newhtml = `
+      <div class=pokecard>
         <div class="topinfo">
           <div class="idtag">#${result.id}</div>
           <div class="hptag">
@@ -78,16 +113,12 @@ function generatehtml(result) {
           </div>
         </div>
         <div class="pokeimglabe">
-          <img src=${result.sprites.other.dream_world.front_default} alt="${result.name}" />
-          <h3>${result.name}</h3>
+          <img src=${result.sprites.other.dream_world.front_default} alt="${name}" />
+          <h3>${name}</h3>
         </div>
          <div class="power1">
             <p>
             ${result.types[0].type.name}
-            <img src="Grass.png" />
-          </p>
-          <p>
-            ${result.types[1].type.name}
             <img src="Grass.png" />
           </p>
           </div>
@@ -108,6 +139,13 @@ function generatehtml(result) {
       </div>
 `;
   searchcont.innerHTML = newhtml;
-  themecolor = typeColor[result.types[0].type.name];
-  setcardstyle(themecolor);
+  themecolor = typecolor[result.types[0].type.name];
+  card.style.background = `radial-gradient(circle at 50% 0%, ${themecolor} 36%, #ffffff 36%)`;
+  abilities.style.backgroundColor - `${themecolor}`;
 }
+
+/****
+ * POWERUPS---DONE
+ * SEARCHBAR--DONE
+ * COLOR-SCHEME AND TYPE SPRITE--NEEDHELP
+ */
