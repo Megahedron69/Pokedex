@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: content-box;
+    }
+    body {
+      background: #e3350d;
+      background-repeat: repeat-y;
+      background-size: cover;
+      font-family: "Nunito", sans-serif;
+    }
+    .topcont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .topcont img {
+      height: 498px;
+      width: 498px;
+    }
+    .randinp {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: -6%;
+    }
+    .randinp img {
+      width: 32px;
+      height: 32px;
+      margin: 3.4%;
+      transition: all 300ms;
+    }
+    .randinp img:hover {
+      transform: rotate(360deg);
+    }
+    .randinp button {
+      font-size: 2rem;
+      border: none;
+      font-weight: 600;
+      padding: 0.3%;
+      border-radius: 11px;
+      width: 7em;
+      height: 49px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 5%;
+      background-color: white;
+      transition: all 300ms;
+      cursor: pointer;
+    }
+    .randinp button:hover {
+      scale: 1.1;
+    }
+    .randinp input {
+      height: 49px;
+      border-radius: 11px;
+      width: 11em;
+      font-size: 2em;
+      font-weight: 500;
+      padding: 0.3%;
+      padding-left: 1%;
+      transition: all 300ms;
+    }
+    .randinp input:hover {
+      scale: 1.1;
+    }
+
+    svg {
+      cursor: pointer;
+      background: white;
+      position: relative;
+      right: 8%;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: all 300ms;
+      flex-wrap: nowrap;
+    }
+    svg:hover {
+      transform: translateX(-15px);
+    }
+    .results {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 5%;
+    }
+    .pokecard {
+      background: radial-gradient(circle at 50% 0%, orange 36%, #ffffff 36%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 3%;
+      margin-top: 8%;
+      border-radius: 27px;
+      padding: 5%;
+      height: auto;
+      width: 300px;
+      box-shadow: 4px 4px 17px black;
+      transition: all 300ms;
+      cursor: pointer;
+    }
+    .pokecard:hover {
+      scale: 1.07;
+      box-shadow: 5px 5px 21px black;
+    }
+    .topinfo {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      bottom: 7%;
+    }
+    .idtag {
+      position: relative;
+      right: 146%;
+      background-color: mediumaquamarine;
+      border: 2px solid black;
+      padding: 4%;
+      font-weight: 600;
+      font-size: 1.3rem;
+      z-index: 341;
+      width: 3rem;
+      border-radius: 11px;
+      box-shadow: 3px 1px 5px black;
+      border-top-left-radius: 62% 180px !important;
+      border-bottom-left-radius: 62% 180px;
+    }
+    .hptag {
+      position: relative;
+      left: 110%;
+      bottom: 50%;
+      padding: 7%;
+      background: white;
+      border-radius: 41px;
+      font-size: 1.6rem;
+      text-align: center;
+      font-weight: 500;
+      width: 90px;
+    }
+    .hptag span {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-right: 1%;
+    }
+    .pokeimglabe {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .pokeimglabe img {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      bottom: 15%;
+    }
+    .pokeimglabe h3 {
+      font-weight: 800;
+      font-size: 3rem;
+      margin-top: -15%;
+    }
+    .power1 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: no-wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .power1 p {
+      background: cyan;
+      border-radius: 21px;
+      padding: 9%;
+      font-size: 1.2rem;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: 1px;
+      border: 1.7px solid black;
+      flex-wrap: nowrap;
+    }
+    .power1 :nth-child(1) {
+      margin-right: 19%;
+    }
+    .power1 img {
+      height: 16px;
+      width: 16px;
+      margin-left: 7px;
+    }
+    .bottominfo {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 5%;
+      margin-bottom: 3%;
+      font-size: 1.9rem;
+      padding: 2%;
+      font-weight: 500;
+      text-align: center;
+    }
+    .bottominfo span {
+      font-weight: 700;
+    }
+    .attack,
+    .defence {
+      margin-right: 10%;
+    }
+  </style>
+  <body>
+    <div class="app">
+      <div class="topcont">
+        <img src="pokemon-23.svg" alt="Pokemon-logo" />
+        <div class="randinp">
+          <button class="random">
+            <img
+              src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-color-kiranshastry.png"
+            />Random
+          </button>
+          <input type="text" class="pokename" placeholder="Pokemon name or ID" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            style="fill: #000000"
+          >
+            <path
+              fill="#616161"
+              d="M34.6 28.1H38.6V45.1H34.6z"
+              transform="rotate(-45.001 36.586 36.587)"
+            ></path>
+            <path
+              fill="#616161"
+              d="M20 4A16 16 0 1 0 20 36A16 16 0 1 0 20 4Z"
+            ></path>
+            <path
+              fill="#37474F"
+              d="M36.2 32.1H40.2V44.400000000000006H36.2z"
+              transform="rotate(-45.001 38.24 38.24)"
+            ></path>
+            <path
+              fill="#64B5F6"
+              d="M20 7A13 13 0 1 0 20 33A13 13 0 1 0 20 7Z"
+            ></path>
+            <path
+              fill="#BBDEFB"
+              d="M26.9,14.2c-1.7-2-4.2-3.2-6.9-3.2s-5.2,1.2-6.9,3.2c-0.4,0.4-0.3,1.1,0.1,1.4c0.4,0.4,1.1,0.3,1.4-0.1C16,13.9,17.9,13,20,13s4,0.9,5.4,2.5c0.2,0.2,0.5,0.4,0.8,0.4c0.2,0,0.5-0.1,0.6-0.2C27.2,15.3,27.2,14.6,26.9,14.2z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="results">
+        <div class="pokecard" id="rcard">
+          <div class="topinfo">
+            <div class="idtag">#1</div>
+            <div class="hptag"><span>HP</span>150</div>
+          </div>
+          <div class="pokeimglabe">
+            <img src="pika.png" alt="pikachu"/>
+            <h3>Pikachu</h3>
+          </div>
+          <div class="power1">
+            <p>electric<img src="Grass.png" /></p>
+            <p>quick<img src="Grass.png" /></p>
+          </div>
+
+          <div class="bottominfo">
+            <div class="attack">
+              <span>60</span>
+              <p>Attack</p>
+            </div>
+            <div class="defence">
+              <span>60</span>
+              <p>Defence</p>
+            </div>
+            <div class="speed">
+              <span>60</span>
+              <p>Speed</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+  <script src="app.js"></script>
+</html>
