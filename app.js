@@ -3,7 +3,6 @@ const randombut = document.querySelector("button");
 const searchbar = document.querySelector("input");
 const searchbut = document.querySelector("svg");
 const searchcont = document.querySelector(".results");
-const abilities = document.querySelector(".power1 p");
 /*********************************VARIABLES******************/
 const baseurl = `https://pokeapi.co/api/v2/pokemon/`;
 let themecolor;
@@ -34,7 +33,7 @@ searchbut.addEventListener("click", function () {
   }
 });
 randombut.addEventListener("click", function () {
-  let randid = Math.floor(Math.random() * 150) + 1;
+  let randid = Math.floor(Math.random() * 898) + 1;
   let finalurl = baseurl + randid;
   fetchapi(finalurl);
 });
@@ -43,7 +42,6 @@ randombut.addEventListener("click", function () {
 async function fetchapi(url) {
   let response = await fetch(url);
   let data = await response.json();
-  //console.log("Api connected");
   generatehtml(data);
 }
 
@@ -62,8 +60,9 @@ const getPokemon = async (id) => {
 
 function createPokemonCard(pokemon) {
   let pokeInnerHTML = "";
+  themecolor = typecolor[pokemon.types[0].type.name];
   const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-  pokeInnerHTML = `<div class="pokecard">
+  pokeInnerHTML = `<div class="pokecard" style="background: radial-gradient(circle at 50% 0%, ${themecolor} 36%, #ffffff 36%)">
         <div class="topinfo">
           <div class="idtag">#${pokemon.id}</div>
           <div class="hptag">
@@ -75,9 +74,9 @@ function createPokemonCard(pokemon) {
           <h3>${name}</h3>
         </div>
          <div class="power1">
-            <p>
+            <p style="background: ${themecolor}">
             ${pokemon.types[0].type.name}
-            <img src="Grass.png" />
+            <img src="src/pokemon-types/${pokemon.types[0].type.name}.svg"/>
           </p>
           
           </div>
@@ -101,11 +100,11 @@ function createPokemonCard(pokemon) {
 fetchPokemons();
 
 function generatehtml(result) {
-  const card = document.createElement("div");
-  card.classList.add("pokecard");
+  themecolor = typecolor[result.types[0].type.name];
   const name = result.name[0].toUpperCase() + result.name.slice(1);
+
   let newhtml = `
-      <div class=pokecard>
+      <div class=pokecard style="background: radial-gradient(circle at 50% 0%, ${themecolor} 36%, #ffffff 36%)">
         <div class="topinfo">
           <div class="idtag">#${result.id}</div>
           <div class="hptag">
@@ -117,9 +116,9 @@ function generatehtml(result) {
           <h3>${name}</h3>
         </div>
          <div class="power1">
-            <p>
+            <p style="background: ${themecolor}">
             ${result.types[0].type.name}
-            <img src="Grass.png" />
+            <img src="src/pokemon-types/${result.types[0].type.name}.svg"/>
           </p>
           </div>
         <div class="bottominfo">
@@ -139,13 +138,6 @@ function generatehtml(result) {
       </div>
 `;
   searchcont.innerHTML = newhtml;
-  themecolor = typecolor[result.types[0].type.name];
-  card.style.background = `radial-gradient(circle at 50% 0%, ${themecolor} 36%, #ffffff 36%)`;
-  abilities.style.backgroundColor - `${themecolor}`;
 }
 
-/****
- * POWERUPS---DONE
- * SEARCHBAR--DONE
- * COLOR-SCHEME AND TYPE SPRITE--NEEDHELP
- */
+
